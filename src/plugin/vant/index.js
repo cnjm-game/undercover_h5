@@ -23,6 +23,7 @@ import {
   Tabs,
   List,
   TabbarItem,
+  Popup,
   PullRefresh,
 } from "vant";
 
@@ -44,6 +45,7 @@ Vue.use(NavBar)
   .use(Tabs)
   .use(List)
   .use(TabbarItem)
+  .use(Popup)
   .use(PullRefresh);
 
 // 定制组件

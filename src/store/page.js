@@ -4,7 +4,7 @@ const state = {
   // 菜单
   menu: [],
   // 页面标题
-  title: "魔方云客",
+  title: "游戏大厅",
   // 页面数据
   pages: {},
 };

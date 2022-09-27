@@ -35,7 +35,7 @@ export default {
   },
   created() {},
   mounted() {
-    this.init();
+    // this.init();
   },
   computed: {
     ...mapState(["menu"]),

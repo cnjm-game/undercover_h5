@@ -19,6 +19,12 @@
           label=""
           placeholder="请输入"
           type="number"
+          @blur="
+            () => {
+              if (checkBomb && checkBomb > maxBomb) checkBomb = maxBomb;
+              if (checkBomb && checkBomb < minBomb) checkBomb = minBomb;
+            }
+          "
         />
       </div>
       <div class="confirm" @click="onConfirm">拆炸弹</div>
@@ -58,8 +64,8 @@ export default {
       bomb: null,
       showBomb: false,
       showPopup: false,
-      minBomb: 1,
-      maxBomb: 100,
+      minBomb: MAX_NUM,
+      maxBomb: MAX_NUM,
       checkBomb: "",
       timer: null,
       recordList: [],
@@ -76,6 +82,8 @@ export default {
       this.bomb = Math.round(Math.random() * (MAX_NUM - MIN_NUM) + MIN_NUM);
       this.recordList = [];
       this.showBomb = false;
+      this.minBomb = MIN_NUM;
+      this.maxBomb = MAX_NUM;
       this.timer && clearTimeout(this.timer);
     },
     comeBack() {
@@ -95,16 +103,20 @@ export default {
         return;
       }
       const checkBomb = Number(this.checkBomb);
+      if (checkBomb < this.minBomb || checkBomb > this.maxBomb) {
+        return alert("超出炸弹范围");
+      }
       this.checkBomb = "";
       this.recordList.push(
         `${dayjs(new Date()).format(
-          "YYYY-MM-DD HH:ss"
+          "YYYY-MM-DD HH:mm:ss"
         )}：尝试使用${checkBomb}进行拆弹`
       );
       if (checkBomb === this.bomb) {
         // 重新开始
         this.onBegin();
         alert("哦豁，炸飞了");
+        return;
       }
       if (checkBomb > this.bomb) {
         this.maxBomb = checkBomb;
